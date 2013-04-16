@@ -1,0 +1,58 @@
+<%= form_tag do  %>
+	<div class="row">
+		<div class="span3 offset2"><img src="/assets/parabola-logo.png" class="img-polaroid"></div>
+		<h3 class="span3 offset8"><%= label_tag 'username', 'Welcome to ' + session[:user_name] %></h3>	
+	</div>
+	<div class="row">
+		<div class="span3 offset2"><h4>Parabola Social Network</h4></div>
+		<p class="span1 offset9"><%= link_to "Logout", login_path %></p>
+	</div>
+	</br></br></br>
+
+	<div class="row">
+		<h5 class="span2 offset2"><%= session[:user_name] + '\'s Galleries' %> </h5>
+		<a class="span2 offset4" id="create_new" href="javascript:void();">Add Gallery</a>
+	</div>
+
+	<div class="row">
+		<img class="span1 offset2" src="/assets/no_image.png" class="img-polaroid">
+		<img class="span1 offset1" src="/assets/no_image.png" class="img-polaroid">
+		<img class="span1 offset1" src="/assets/no_image.png" class="img-polaroid">
+		<img class="span1 offset1" src="/assets/no_image.png" class="img-polaroid">
+	</div>
+	<div class="row">
+		<p class="span1 offset2 text-center"><%= link_to "Gallery 1", "/content/gallery/1" %></p>
+		<p class="span1 offset1"><%= link_to "Gallery 2", "www.google.com"  %></p>
+		<p class="span1 offset1"><%= link_to "Gallery 3", "www.google.com"  %></p>
+		<p class="span1 offset1"><%= link_to "Gallery 4", "www.google.com"  %></p>
+	</div>
+	</br></br>
+	<div id="gallery_new" class="row" style="display:none;">
+		<div class="row">
+			<div class="span2 offset2"><%= label_tag 'Title' %></div>
+			<%= text_field_tag 'Gallery_Title' %>
+		</div>
+		<div class="row">
+			<div class="span2 offset2"><%= label_tag 'Description' %></div>
+			<%= text_field_tag 'Gallery_Description' %>
+		</div>
+		<div class="row">
+			<input class="offset4" id="save_gallery" type="button" value="Save" />
+			<input id="cancel_gallery" type="button" value="Cancel" onclick="hideGallery();" />
+		</div>
+	</div>
+<% end %>
+
+<script type="text/javascript">
+	$("#create_new").click(function()
+	{
+		$("#create_new").hide();
+		$("#gallery_new").show();
+	});
+
+	function hideGallery()
+	{
+		$("#create_new").show();
+		$("#gallery_new").hide();
+	}
+</script>

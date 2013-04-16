@@ -1,0 +1,26 @@
+<div class="row">
+	<%= form_tag  do  %>
+		<div class="row">
+			<div class="span3 offset2"><img src="/assets/parabola-logo.png" class="img-polaroid"></div>
+				<h3 class="span3 offset8"><%= label_tag :username, 'Welcome to ' + session[:user_name] %></h3>
+		</div>
+		<div class="row">
+			<div class="span3 offset2"><h4>Parabola Social Network</h4></div>
+			<p class="span1 offset9"><%= link_to "Logout", login_path %></p>
+		</div>
+		</br></br></br>
+
+		<div class="row">
+			<img class="offset2" src="/assets/gallery.png" class="img-polaroid">
+			<img src="/assets/events.png" class="img-polaroid">
+			<img src="/assets/email.jpg" class="img-polaroid">
+			<img src="/assets/messages.png" class="img-polaroid">
+		</div>
+		<div class="row">
+			<p class="span2 offset3"><%= link_to "My Gallery", "/content/gallery" %></p>
+			<p class="span2"><%= link_to "Events", "/content/events" %></p>
+			<p class="span2"><%= link_to "Email", "/content/email" %></p>
+			<p class="span2"><%= link_to "My Messages", "/content/messages" %></p>
+		</div>
+	<% end %>
+</div>

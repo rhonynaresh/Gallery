@@ -1,0 +1,17 @@
+<div class="row">
+	<%= form_for :post do |f| %>
+		<div class="row">
+			<div class="span3 offset2"><img src="/assets/parabola-logo.png" class="img-polaroid"></div>
+				<h3 class="span3 offset8"><%= f.label :username, 'Welcome to ' + session[:user_name] %></h3>
+		</div>
+		<div class="row">
+			<div class="span3 offset2"><h4>Parabola Social Network</h4></div>
+			<p class="span1 offset9"><%= link_to "Logout", login_path %></p>
+		</div>
+		</br></br></br>
+
+		<div class="row">
+			<p class="span1 offset9"><%= link_to "My Gallery", gallery_path %></p>
+		</div>
+	<% end %>
+</div>

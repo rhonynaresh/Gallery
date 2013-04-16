@@ -1,0 +1,16 @@
+<%= form_for @painting, :url =>{:controller => "gallery",:action => "create",:method => :post}, :html => {:multipart => true} do |f| %>
+	
+	<p>
+		<%= @painting.image_url.to_s %>
+	</p>
+	
+	<p>
+		<%= f.file_field :image %>
+	</p>
+	<p>
+		<%= f.submit %>
+	</p>
+<% end %>
+<% flash.each do |key, msg| %>
+    	<%= content_tag :div, msg, :class => [key, " message"], :id => "notice_#{key}" %>
+	<% end %>
