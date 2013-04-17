@@ -33,10 +33,12 @@ Content::Application.routes.draw do
   get "content/home" => "content#home", :as => "home"
 
   get "content/gallery" => "gallery#gallery" 
-  post "content/gallery" => "gallery#gallery" 
+  #post "content/gallery" => "gallery#gallery" 
 
-  get "content/gallery/new" => "gallery#images", :as => "new_gallery"
-  post "content/gallery/new" => "gallery#images", :as => "new_gallery"
+  post "content/add_gallery" => "gallery#add_gallery"
+
+  #get "content/gallery/new" => "gallery#images", :as => "new_gallery"
+  #post "content/gallery/new" => "gallery#images", :as => "new_gallery"
 
   #get "upload" => "gallery#upload", :as => "upload"
   #post "upload" => "gallery#upload", :as => "upload"
@@ -44,6 +46,10 @@ Content::Application.routes.draw do
   get "content/gallery/:gallery_id" => "gallery#images", :as => "gallery"
   post "content/gallery/upload" => "gallery#upload"
   # This creates 2 helper methods - gallery_path, gallery_url
+
+  #resource :gallery do
+    #resource :image 
+  #end
 
 
 

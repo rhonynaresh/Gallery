@@ -4,4 +4,8 @@ class Image < ActiveRecord::Base
     	self.content_type = input_data.content_type.chomp
     	self.binary_data = input_data.read
   	end
+
+  	attr_accessible :image, :gallery_id
+  	belongs_to :gallery
+ 	mount_uploader :image, ImageUploader
 end

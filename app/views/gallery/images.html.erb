@@ -1,44 +1,29 @@
-<%= form_tag 'upload', { :multipart => true } do  %>
-	<div class="row">
-		<div class="span3 offset2"><img src="/assets/parabola-logo.png" class="img-polaroid"></div>
-		<h3 class="span3 offset8"><%= label_tag 'username', 'Welcome to ' + session[:user_name] %></h3>	
-	</div>
-	<div class="row">
-		<div class="span3 offset2"><h4>Parabola Social Network</h4></div>
-		<p class="span1 offset9"><%= link_to "Logout", login_path %></p>
-	</div>
-	</br></br></br>
+<div class="row">
+	<div class="span3 offset2"><img src="/assets/parabola-logo.png" class="img-polaroid"></div>
+	<h3 class="span3 offset8"><%= label_tag 'username', 'Welcome to ' + session[:user_name] %></h3>	
+</div>
+<div class="row">
+	<div class="span3 offset2"><h4>Parabola Social Network</h4></div>
+	<p class="span1 offset9"><%= link_to "Logout", login_path %></p>
+</div>
+</br></br></br>
 
-	<div class="row">
-		<h5 class="span2 offset2"><%= session[:user_name] + '\'s Galleries' %> </h5>
-		<a class="span2 offset5" id="create_new" href="javascript:void();">Add Photo</a>
-	</div>
-	<div class="row">
-		<img class="span1 offset2" src="/assets/no_image.png" class="img-polaroid">
-		<img class="span1" src="/assets/no_image.png" class="img-polaroid">
-		<img class="span1" src="/assets/no_image.png" class="img-polaroid">
-		<img class="span1" src="/assets/no_image.png" class="img-polaroid">
-		<img class="span1" src="/assets/no_image.png" class="img-polaroid">
-		<img class="span1" src="/assets/no_image.png" class="img-polaroid">
-		<img class="span1" src="/assets/no_image.png" class="img-polaroid">
-		<img class="span1" src="/assets/no_image.png" class="img-polaroid">
-	</div>
-	<div class="row">
-		<p class="span1 offset2 text-center"><%= link_to "Image 1", "/content/gallery/1" %></p>
-		<p class="span1"><%= link_to "Image 2", "www.google.com"  %></p>
-		<p class="span1"><%= link_to "Image 3", "www.google.com"  %></p>
-		<p class="span1"><%= link_to "Image 4", "www.google.com"  %></p>
-		<p class="span1"><%= link_to "Image 5", "www.google.com"  %></p>
-		<p class="span1"><%= link_to "Image 6", "www.google.com"  %></p>
-		<p class="span1"><%= link_to "Image 7", "www.google.com"  %></p>
-		<p class="span1"><%= link_to "Image 8", "www.google.com"  %></p>
-	</div>
+<div class="row">
+	<h5 class="span2 offset2"><%= session[:user_name] + '\'s Galleries' %> </h5>
+	<a class="span2 offset5" id="create_new" href="javascript:void();">Add Photo</a>
+</div>
+<%= form_tag 'upload', { :multipart => true } do  %>
+	<% @images.each do |i| %>
+		<div class="span1 offset1">
+			<p><%= image_tag i.image_url.to_s %></p>
+		</div>
+	<% end %>
 	<div class="row">
 		<p class="span2 offset8"><%= link_to 'Back to My Gallery', '/content/gallery' %></p>
 	</div>
 	</br></br>
 	<div class="row">
-		<p class="span2 offset2"><%= link_to 'New Photo', :action => 'painting' %></p>
+		<a class="span2 offset2" id="new_image" href="javascript:void();">New Image</a>
 	</div>
 	<div class="row" id="image_new" style="display:none;">
 		<div class="row">
@@ -53,19 +38,19 @@
 		</div>
 	</div>
 <% end %>
-<div class="row span1 offset2 id="photo_new">
-	<%= form_for @painting, :url =>{:controller => "gallery",:action => "create",:method => :post}, :html => {:multipart => true} do |f| %>
-		
-		<p>
-			<%= @painting.image_url.to_s %>
-		</p>
-		
+<div class="row span1 offset2" id="photo_new" style="display:none;">
+	<%= form_for @image, :url =>{:controller => "gallery",:action => "create",:method => :post}, :html => {:multipart => true} do |f| %>
+		<%= f.hidden_field :gallery_id %>
 		<p>
 			<%= f.file_field :image %>
 		</p>
-		<p>
-			<%= f.submit %>
-		</p>
+		<div class="row">
+			<div class="span2"><%= text_area_tag 'photo_description' %></div>
+		</div>
+		<div class="row">
+			<%= f.submit 'Upload' %>
+			<input id="cancel_image" type="button" value="Cancel" onclick="hidePhoto();" />
+		</div>
 	<% end %>
 </div>
 	<% flash.each do |key, msg| %>
@@ -79,9 +64,21 @@
 		$("#image_new").show();
 	});
 
+	$("#new_image").click(function()
+	{
+		$("#new_image").hide();
+		$("#photo_new").show();
+	});
+
 	function hideImage()
 	{
 		$("#create_new").show();
 		$("#image_new").hide();
+	}
+
+	function hidePhoto()
+	{
+		$("#new_image").show();
+		$("#photo_new").hide();
 	}
 </script>
