@@ -6,7 +6,7 @@ class GalleryController < ApplicationController
   end
 
   def gallery
-    @gallery = Gallery.find(:all)
+    @gallery = Gallery.where(:user_id => session[:user_id])
   end
 
   def add_gallery

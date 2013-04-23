@@ -11,9 +11,9 @@ Content::Application.routes.draw do
   #get "gallery/create" => "gallery#create", :as => "create"
   post "gallery/create" => "gallery#create", :as => "create"
   #get "home/home"
-
+  get "content/myprofile" => "myprofile#myprofile", :as => "myprofile"
+  post "content/savemyprofile" => "myprofile#savemyprofile"
   #get "content/login" => "content#login", :as => "login"
-    
 
   get "content/signup" => "content#signup", :as => "signup"
   post "content/signup" => "content#signup", :as => "signup"
@@ -26,7 +26,7 @@ Content::Application.routes.draw do
   get "content/forgotpassword" => "content#forgotpassword", :as => "forgotpassword"
   post "content/forgotpassword" => "content#forgotpassword", :as => "forgotpassword"
 
-  #post "content/signin" => "content#signin", :as => "signin"
+  post "content/signin" => "content#signin", :as => "signin"
 
   #post "content/register" => "content#register", :as => "register"
 

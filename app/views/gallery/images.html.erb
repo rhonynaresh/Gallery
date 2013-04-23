@@ -14,8 +14,10 @@
 </div>
 <%= form_tag 'upload', { :multipart => true } do  %>
 	<% @images.each do |i| %>
-		<div class="span1 offset1">
-			<p><%= image_tag i.image_url.to_s %></p>
+		<div class="span1 offset2">
+			<!-- Button to trigger modal -->
+			<a href="#myImages" role="link" class="img thumbnail" data-toggle="modal"><%= image_tag i.image_url.to_s %></a></br>
+			<a href="#myImages" role="link" class="link" data-toggle="modal"><%= i.description %></a>
 		</div>
 	<% end %>
 	<div class="row">
@@ -48,14 +50,36 @@
 			<div class="span2"><%= text_area_tag 'photo_description' %></div>
 		</div>
 		<div class="row">
-			<%= f.submit 'Upload' %>
-			<input id="cancel_image" type="button" value="Cancel" onclick="hidePhoto();" />
+			<div class="span3"><%= f.submit 'Upload', :class => 'btn' %>
+			<input id="cancel_image" type="button" class="btn" value="Cancel" onclick="hidePhoto();" /></div>
 		</div>
 	<% end %>
 </div>
-	<% flash.each do |key, msg| %>
-    	<%= content_tag :div, msg, :class => [key, " message"], :id => "notice_#{key}" %>
-	<% end %>
+    <!-- Modal -->
+    <div id="myImages" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    	<div class="modal-body">
+    		<img src="/uploads/image/image/15/Desert.jpg" alt="Desert" class="img-polaroid">
+    	</div>
+    	 <div class="container">
+      		<!-- Example row of columns -->
+	      	<div class="row">
+		        <div class="span4">
+				  <p>&nbsp;</p>
+		          	<div id="myCarousel" class="carousel slide">
+		  				<!-- Carousel items -->
+					  	<div class="carousel-inner">
+					    	<div class="active item img-polaroid"><img src="/uploads/image/image/15/Desert.jpg" alt="Desert" />
+					    	</div>
+		  				</div>
+					  	<!-- Carousel nav -->
+					  	<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+					  	<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
 
 <script type="text/javascript">
 	$("#create_new").click(function()
