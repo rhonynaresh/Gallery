@@ -1,38 +1,35 @@
 <div class="row">
-	<div class="span3 offset2"><img src="/assets/parabola-logo.png" class="img-polaroid"></div>
-	<h3 class="span3 offset8"><%= label_tag 'username', 'Welcome to ' + session[:user_name] %></h3>	
-</div>
-<div class="row">
-	<div class="span3 offset2"><h4>Parabola Social Network</h4></div>
-	<p class="span1 offset9"><%= link_to "Logout", login_path %></p>
-</div>
-</br></br></br>
-
-<div class="row">
-	<h5 class="span3 offset2"><%= session[:user_name] + '\'s Galleries' %> </h5>
-	<a class="span2 offset4" id="create_new" href="javascript:void();">Add Gallery</a>
-</div>
+	<a style="margin-left:31px;" class="span2 btn btn-primary" id="create_new" href="javascript:void();">Add Gallery</a>
+</div></br>
 <%= form_tag :action => 'add_gallery' do  %>
+<div class="row" style="margin-left:-7px;">
 	<% @gallery.each do |g| %>
-		<div class="span1 offset1">
+		<div class="span2">
+			<% if !g.images.blank? && g.images.count >=1 %>
+			<img src="<%= g.images.first.image_url.to_s %>" class="img-polaroid thumbnail"> &nbsp;
+			<% end %>
+			<% if g.images.blank? || g.images.count == 0 %>
 			<img src="/assets/no_image.png" class="img-polaroid thumbnail">
+			<% end %>
 			</br>
 			<p class="text-center"><%= link_to(g.name, gallery_path(g)) %></p>
 		</div>
 	<% end %>
-	</br></br>
-	<div id="gallery_new" class="row" style="display:none;">
-		<div class="row">
-			<div class="span2 offset2"><%= label_tag 'Title' %></div>
-			<%= text_field_tag :name %>
-		</div>
-		<div class="row">
-			<div class="span2 offset2"><%= label_tag 'Description' %></div>
-			<%= text_area_tag :description %>
-		</div>
-		<div class="row span2 offset2">
-			<%= submit_tag 'Submit' %>
-			<input id="cancel_gallery" type="button" value="Cancel" onclick="hideGallery();" />
+</div>
+	<div class="row">
+		<div id="gallery_new" class="row" style="display:none;">
+			<div class="row">
+				<div class="span2 offset1"><%= label_tag 'Title' %></div>
+				<%= text_field_tag :name %>
+			</div>
+			<div class="row">
+				<div class="span2 offset1"><%= label_tag 'Description' %></div>
+				<%= text_area_tag :description %>
+			</div>
+			<div class="row span2 offset1">
+				<%= submit_tag 'Submit' %>
+				<input id="cancel_gallery" type="button" value="Cancel" onclick="hideGallery();" />
+			</div>
 		</div>
 	</div>
 <% end %>
@@ -49,4 +46,9 @@
 		$("#create_new").show();
 		$("#gallery_new").hide();
 	}
+
+	$(document).ready(function()
+	{
+		$('.breadcrumb #bc_mygallery').show();
+	});
 </script>

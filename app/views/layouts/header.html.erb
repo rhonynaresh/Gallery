@@ -7,19 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<div class="row">
-	<div class="span3 offset2"><img src="/assets/parabola-logo.png" class="img-polaroid"></div>
-	<h3 class="span3 offset8"><%= label_tag 'username', 'Welcome to ' + session[:user_name] %></h3>	
+<%= yield %>
+<div class="row offset2">
+  <% flash.each do |key, msg| %>
+    <%= content_tag :div, msg, :class => [key, " message"], :id => "notice_#{key}" %>
+  <% end %>
 </div>
-<div class="row">
-	<div class="span3 offset2"><h4>Parabola Social Network</h4></div>
-	<p class="span1 offset9"><%= link_to "Logout", login_path %></p>
-</div>
-<div class="row">
-	<p class="span2 offset2"><%= link_to "My Gallery", gallery_path %></p>
-</div>
-</br></br></br>
-
 </body>
 </html>

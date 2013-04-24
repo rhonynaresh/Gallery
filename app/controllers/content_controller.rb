@@ -1,5 +1,6 @@
 class ContentController < ApplicationController
   def login
+    render :layout => 'header'
     session[:user_name] = nil
     session[:user_id] = nil
   end
@@ -8,6 +9,7 @@ class ContentController < ApplicationController
   end
 
   def signup
+    render :layout => 'header'
   end
 
   def home
@@ -15,6 +17,10 @@ class ContentController < ApplicationController
   end
 
   def changepassword
+  end
+
+  def forgotpassword
+    render :layout => 'header'
   end
 
   def register

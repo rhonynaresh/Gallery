@@ -3,6 +3,7 @@ class GalleryController < ApplicationController
     @image = Image.new :gallery_id => params[:gallery_id]
     #@image = Image.new
     @images = Gallery.find(params[:gallery_id]).images
+    @gallery_name = Gallery.find(params[:gallery_id]).name
   end
 
   def gallery

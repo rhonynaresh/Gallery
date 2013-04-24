@@ -1,7 +1,4 @@
 <div class="container">
-	<div class="offset4"><img src="/assets/parabola-logo.png" class="img-polaroid"></div>
-	<div class="offset4"><h4>Registration for Parabola Social Network</h4></div>
-</br></br><br>
 	<%= form_for @myprofile, :url =>{:controller => "myprofile",:action => "savemyprofile",:method => :post}, :html => {:multipart => true} do |f| %>
 		<div class="row">
 			<div class="span1 offset4"><%= label_tag 'Mobile' %></div>
@@ -21,3 +18,10 @@
 		</div>
 	<% end %>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function()
+	{
+		$('.breadcrumb #bc_profile').show();
+	});
+</script>

@@ -7,7 +7,30 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<div class="row">&nbsp;</div>
+<div class="row">
+	<div class="span3 offset2"><img src="/assets/parabola-logo.png" class="img-polaroid"></div>
+	<div class="span4 offset1"><h3>Parabola Social Network</h3></div>
+	<p class="span1 offset2"><img src="/assets/no_image.png" class="img-polaroid"></p>
+	<p class="span2 ">Mobile : 9999899989<br>
+		Location : Vizag, India</p>
+	<div class="span3 dropdown">
+    <!-- Link or button to toggle dropdown -->
+    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><%= session[:user_name].to_s.titleize %>&nbsp;<span class="caret"></span></a>
+    
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+    	<li><%= link_to "My Profile", myprofile_path %></li>
+    	<li class="divider"></li>
+    	<li><%= link_to "Logout", login_path %></li>
+    </ul>
+</div>
+</div>
+<div class="breadcrumb">
+	<li><img src="/assets/home.png" class="img-polaroid">&nbsp;<%= link_to 'Home', home_path %></li>
+	<li id="bc_mygallery" style="display:none;"><span class="divider">/</span><%= link_to session[:user_name].to_s.titleize + '\'s Galleries', galleries_path %></li>
+	<li id="bc_gallery" class="active" style="display:none;"><span class="divider">/</span><%= @gallery_name %></li>
+	<li id="bc_profile" class="active" style="display:none;"><span class="divider">/</span>My Profile</li>
+</div>
 <%= yield %>
 <div class="row offset2">
 	<% flash.each do |key, msg| %>

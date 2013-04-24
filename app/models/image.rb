@@ -5,7 +5,7 @@ class Image < ActiveRecord::Base
     	self.binary_data = input_data.read
   	end
 
-  	attr_accessible :image, :gallery_id
+  	attr_accessible :image, :gallery_id, :description
   	belongs_to :gallery
  	mount_uploader :image, ImageUploader
 end

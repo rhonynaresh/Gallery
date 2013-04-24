@@ -32,7 +32,7 @@ Content::Application.routes.draw do
 
   get "content/home" => "content#home", :as => "home"
 
-  get "content/gallery" => "gallery#gallery" 
+  get "content/gallery" => "gallery#gallery", :as => 'galleries'
   #post "content/gallery" => "gallery#gallery" 
 
   post "content/add_gallery" => "gallery#add_gallery"

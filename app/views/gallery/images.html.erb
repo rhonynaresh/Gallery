@@ -1,55 +1,45 @@
-<div class="row">
-	<div class="span3 offset2"><img src="/assets/parabola-logo.png" class="img-polaroid"></div>
-	<h3 class="span3 offset8"><%= label_tag 'username', 'Welcome to ' + session[:user_name] %></h3>	
-</div>
-<div class="row">
-	<div class="span3 offset2"><h4>Parabola Social Network</h4></div>
-	<p class="span1 offset9"><%= link_to "Logout", login_path %></p>
-</div>
-</br></br></br>
-
-<div class="row">
-	<h5 class="span2 offset2"><%= session[:user_name] + '\'s Galleries' %> </h5>
+<div class="row" style="display:none;">
 	<a class="span2 offset5" id="create_new" href="javascript:void();">Add Photo</a>
 </div>
+<div class="row">
+	<a style="margin-left:31px;" class="span2 btn btn-primary" id="new_image" href="javascript:void();">Add Image</a>
+</div></br>
 <%= form_tag 'upload', { :multipart => true } do  %>
+<div class="row" style="margin-left:-7px;">
 	<% @images.each do |i| %>
-		<div class="span1 offset2">
+		<div class="span2">
 			<!-- Button to trigger modal -->
-			<a href="#myImages" role="link" class="img thumbnail" data-toggle="modal"><%= image_tag i.image_url.to_s %></a></br>
-			<a href="#myImages" role="link" class="link" data-toggle="modal"><%= i.description %></a>
+			<a href="#myImages" role="link" class="img thumbnail" data-toggle="modal" onclick="ImagePreview('<%= i.image_url.to_s %>')"><%= image_tag i.image_url.to_s %></a></br>
+			<p><%= i.description %></p>
 		</div>
+		&nbsp;
 	<% end %>
-	<div class="row">
-		<p class="span2 offset8"><%= link_to 'Back to My Gallery', '/content/gallery' %></p>
-	</div>
-	</br></br>
-	<div class="row">
-		<a class="span2 offset2" id="new_image" href="javascript:void();">New Image</a>
 	</div>
 	<div class="row" id="image_new" style="display:none;">
 		<div class="row">
-			<div class="span2 offset2"><%= file_field_tag 'upload[file]' %></div>
+			<div class="span2 offset1"><%= file_field_tag 'upload[file]' %></div>
 		</div>
 		<div class="row">
-			<div class="span2 offset2"><%= text_area_tag 'image_description' %></div>
+			<div class="span2 offset1"><%= text_area_tag 'image_description' %></div>
 		</div>
 		<div class="row">
-			<p <div class="span1 offset2"><%= submit_tag "Upload" %></p>
+			<p <div class="span1 offset1"><%= submit_tag "Upload" %></p>
 			<input id="cancel_image" type="button" value="Cancel" onclick="hideImage();" />
 		</div>
 	</div>
 <% end %>
-<div class="row span1 offset2" id="photo_new" style="display:none;">
+<div class="row offset1" id="photo_new" style="display:none;">
 	<%= form_for @image, :url =>{:controller => "gallery",:action => "create",:method => :post}, :html => {:multipart => true} do |f| %>
 		<%= f.hidden_field :gallery_id %>
-		<p>
-			<%= f.file_field :image %>
-		</p>
 		<div class="row">
-			<div class="span2"><%= text_area_tag 'photo_description' %></div>
+			<div class="span2"><%= label_tag 'Select Photo :' %></div>
+			<%= f.file_field :image %>
 		</div>
 		<div class="row">
+			 <div class="span2"><%= label_tag 'Description :' %></div>
+			<%= text_area_tag 'photo_description' %>
+		</div>
+		<div class="row offset2">
 			<div class="span3"><%= f.submit 'Upload', :class => 'btn' %>
 			<input id="cancel_image" type="button" class="btn" value="Cancel" onclick="hidePhoto();" /></div>
 		</div>
@@ -59,29 +49,41 @@
     <div id="myImages" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     	<div class="modal-body">
-    		<img src="/uploads/image/image/15/Desert.jpg" alt="Desert" class="img-polaroid">
-    	</div>
-    	 <div class="container">
       		<!-- Example row of columns -->
 	      	<div class="row">
-		        <div class="span4">
-				  <p>&nbsp;</p>
-		          	<div id="myCarousel" class="carousel slide">
-		  				<!-- Carousel items -->
-					  	<div class="carousel-inner">
-					    	<div class="active item img-polaroid"><img src="/uploads/image/image/15/Desert.jpg" alt="Desert" />
-					    	</div>
-		  				</div>
-					  	<!-- Carousel nav -->
-					  	<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-					  	<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-					</div>
+		        <div>
+				  
+		          	<div id="myCarousel" class="carousel slide" style="width: 510px; margin: 0 auto">
+					<!-- Carousel items -->
+			  	<div class="carousel-inner">
+			  		<% n=0 %>
+			    	<% @images.each do |i| %>
+			    	<% n = n+ 1 %>
+			    	<% if n==1 %>
+			    	<div class="active item img-polaroid"><img src="<%= i.image_url.to_s %>" />
+			    	</div>
+			    	<% else %>
+			    	<div class="item img-polaroid"><img src="<%= i.image_url.to_s %>"  />
+			    	</div>
+			    	<% end %>
+				<% end %>
+						</div>
+				  	<!-- Carousel nav -->
+				  	<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+				  	<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 				</div>
-			</div>
+				</div>
 		</div>
+    	</div>
+    	 
     </div>
 
 <script type="text/javascript">
+	$(document).ready(function()
+	{
+		$('.breadcrumb #bc_mygallery').show();
+		$('.breadcrumb #bc_gallery').show();
+	});
 	$("#create_new").click(function()
 	{
 		$("#create_new").hide();
@@ -104,5 +106,22 @@
 	{
 		$("#new_image").show();
 		$("#photo_new").hide();
+	}
+
+	function ImagePreview(selected_image_path)
+	{
+		// alert(selected_image_path);
+		// change Modal Div's image src to selected image
+		// $('.modal-body > img').attr("src", selected_image_path)
+		//$('#myCarousel').show();
+		//$('.carousel').carousel()
+
+		// Remove 'active' class from all '.item' div
+		$('div.item').removeClass("active");
+		// Add 'active' class to selected '.item' div
+		$('div.item > img').each(function(){
+			if (this.src.indexOf(selected_image_path) >= 0)
+				$(this).parent().addClass("active");
+		});
 	}
 </script>
